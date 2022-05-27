@@ -20,7 +20,7 @@
 
     class TestCommand : public ACommand {
         public:
-            TestCommand(std::unique_ptr<void, std::function<void (void*)>> handle);
+            TestCommand(std::shared_ptr<void> &handle);
             ~TestCommand() final;
 
             const bool execute(const std::string &ACommand, const std::string &rawArgs) final;

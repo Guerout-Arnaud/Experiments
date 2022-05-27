@@ -19,30 +19,20 @@ extern "C" {
     //     std::cout << "createInstance" << std::endl;
     // }
 
-    TestCommand *createInstanceTest(std::unique_ptr<void, std::function<void (void*)>> handle)
-    {
-        std::cout << "createInstanceTest" << std::endl;
-
-        TestCommand *test = new TestCommand(std::move(handle));
-        return (test);
-    }
-
-    std::unique_ptr<TestCommand> createInstance(std::unique_ptr<void, std::function<void (void*)>> handle)
+    std::unique_ptr<TestCommand> createInstance(std::shared_ptr<void> &handle)
     {
         std::cout << "createInstance" << std::endl;
 
-        std::unique_ptr<TestCommand> instance(new TestCommand(std::move(handle)));
+        std::unique_ptr<TestCommand> instance(new TestCommand(handle));
 
-        return instance;
-        // return  std::make_unique<TestCommand>(new TestCommand(std::move(handle)));
+        return (instance);
     }
 
 }
 
-
-
-TestCommand::TestCommand(std::unique_ptr<void, std::function<void (void*)>> handle) : ACommand(std::move(handle))
+TestCommand::TestCommand(std::shared_ptr<void> &handle) : ACommand(handle)
 {
+    std::cout << "TestCommand::TestCommand()" << std::endl;
     _name = "TestCommand";
 }
 

@@ -20,11 +20,10 @@
 
     class ACommand : public ICommand {
         public:
-            ACommand(std::unique_ptr<void, std::function<void (void*)>> handle);
+            ACommand(std::shared_ptr<void> &handle);
             virtual ~ACommand() override;
 
             const std::string &getName() const final;
-            const std::unique_ptr<void, std::function<void (void*)>> &getHandle() const final;
 
             virtual const bool execute(const std::string &ACommand, const std::string &rawArgs) override;
 
@@ -32,7 +31,7 @@
             std::string _name;
 
         private:
-            std::unique_ptr<void, std::function<void (void*)>> _handle;
+            std::shared_ptr<void> _handle;
     };
 
 

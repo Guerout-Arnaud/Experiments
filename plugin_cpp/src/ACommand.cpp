@@ -10,14 +10,19 @@
 */
 
 #include <iostream>
-#include <regex>
+#include <memory>
+// #include <regex>
 
 #include "ACommand.hpp"
 
-ACommand::ACommand(std::unique_ptr<void, std::function<void (void*)>> handle)
+ACommand::ACommand(std::shared_ptr<void> &handle) : ICommand(), _handle(nullptr)
 {
-    _handle = std::move(handle);
+    std::cout << "ACommand::ACommand()" << std::endl;
+    std::cout << "handle: " << handle << std::endl;
+    _handle = handle;
+    std::cout << "After handle" << std::endl;
     _name = "AbstractCommand";
+    handle;
 }
 
 ACommand::~ACommand()
@@ -28,12 +33,6 @@ ACommand::~ACommand()
 const std::string &ACommand::getName() const
 {
     return (_name);
-}
-
-
-const std::unique_ptr<void, std::function<void (void*)>> &ACommand::getHandle() const
-{
-    return (_handle);
 }
 
 const bool ACommand::execute(const std::string &ACommand, const std::string &rawArgs)

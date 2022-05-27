@@ -19,11 +19,11 @@
                 virtual ~ICommand() = default;
 
                 virtual const std::string &getName() const = 0;
-                virtual const std::unique_ptr<void, std::function<void (void*)>> &getHandle() const = 0;
                 virtual const bool execute(const std::string &command, const std::string &rawArgs) = 0;
 
             protected:
-                ICommand() = default;
+                // ICommand() = default;
+                ICommand() {std::cout << "ICommand::ICommand()" << std::endl;}
 
             private:
 
